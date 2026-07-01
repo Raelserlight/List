@@ -38,22 +38,18 @@ const addGrudge = async (e) => {
     const optimisticGrudge = { _id: tempId, text, isResolved: false };
     
     setGrudges([optimisticGrudge, ...grudges]); // อัปเดต UI ทันที
-    setText(''); // เคลียร์ช่องพิมพ์ทันที
-
-    // 2. แอบส่งไปให้หลังบ้านจัดการเงียบๆ
+    setText('');
+  
     try {
       const res = await axios.post(API_URL, { optimisticGrudge: text, text }, axiosConfig);
-      // พอหลังบ้านเซฟเสร็จ ค่อยเอา ID จริงมาเปลี่ยนทับของปลอม
       setGrudges(prev => prev.map(g => g._id === tempId ? res.data : g));
     } catch (err) {
-      // ถ้าเน็ตหลุด เซฟไม่ติด ก็ลบของปลอมทิ้ง
       setGrudges(prev => prev.filter(g => g._id !== tempId)); 
       console.error(err);
     }
   };
 
   const toggleResolved = async (id) => {
-    // อัปเดตหน้าเว็บทันที ไม่ต้องรอ
     setGrudges(grudges.map(g => (g._id === id ? { ...g, isResolved: !g.isResolved } : g)));
     try {
       await axios.put(`${API_URL}/${id}`, {}, axiosConfig);
@@ -63,7 +59,6 @@ const addGrudge = async (e) => {
   };
 
   const deleteGrudge = async (id) => {
-    // อัปเดตหน้าเว็บทันที ลบหายวับไปเลย
     setGrudges(grudges.filter(g => g._id !== id));
     try {
       await axios.delete(`${API_URL}/${id}`, axiosConfig);
@@ -73,13 +68,12 @@ const addGrudge = async (e) => {
   };
 
   return (
-    // จัดให้อยู่ตรงกลางจอ พื้นหลังดำ
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center p-4 font-sans selection:bg-white/30">
       
-      {/* แสงเรืองๆ พื้นหลังตรงกลาง (Glow Effect) */}
+      {/* (Glow Effect Eng jaa) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-      {/* กรอบเนื้อหาหลัก */}
+      {/* กรอบเนื้อหา */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,7 +84,7 @@ const addGrudge = async (e) => {
           My List
         </h1>
 
-        {/* ฟอร์มกรอกข้อมูลสไตล์แอป iOS */}
+        {/* ฟอร์ม */}
         <form onSubmit={addGrudge} className="mb-6 relative">
           <input
             type="text"
@@ -107,7 +101,7 @@ const addGrudge = async (e) => {
           </button>
         </form>
 
-        {/* พื้นที่แสดงรายการแบบเลื่อนได้ (Scrollable) */}
+        {/* พื้นที่แสดงรายการโง่ๆ */}
         <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar pb-4">
           <AnimatePresence mode="popLayout">
             {grudges.map((grudge) => (
@@ -124,7 +118,7 @@ const addGrudge = async (e) => {
                     : 'bg-white/10 border-white/10 shadow-[0_4px_24px_rgba(255,255,255,0.02)]'
                 }`}
               >
-                {/* วงกลมติ๊กถูก และ ข้อความ */}
+                {/* ช่องติ้ก ชิโร่ */}
                 <div 
                   className="flex items-center gap-4 flex-1 cursor-pointer"
                   onClick={() => toggleResolved(grudge._id)}
@@ -144,7 +138,7 @@ const addGrudge = async (e) => {
                   </span>
                 </div>
 
-                {/* ปุ่มลบทิ้งเป็นไอคอนถังขยะแบบคลีนๆ */}
+                {/* ปุ่มลบลิสต์ เเต่ไม่สามารถลบเธอไปจากใจได้ */}
                 <button
                   onClick={() => deleteGrudge(grudge._id)}
                   className="opacity-100 sm:opacity-0 group-hover:opacity-100 ml-4 p-2 text-white/30 hover:text-white/80 hover:bg-white/10 rounded-xl transition-all active:scale-90"
