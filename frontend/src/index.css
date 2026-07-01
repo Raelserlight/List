@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ลบไฮไลท์สีฟ้าเวลาทัชบนมือถือ (ไม้ตายแอปมือถือ) */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -11,11 +10,9 @@ body {
   background-color: #000;
   color: #fff;
   margin: 0;
-  /* ฟอนต์สไตล์ Apple */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* แต่งแถบเลื่อน (Scrollbar) ให้ล่องหนแบบ iOS */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
 }
