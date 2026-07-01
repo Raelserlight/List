@@ -119,21 +119,21 @@ const addGrudge = async (e) => {
                 }`}
               >
                 {/* ช่องติ้ก ชิโร่ */}
-                <div 
-                  className="flex items-center gap-4 flex-1 cursor-pointer"
-                  onClick={() => toggleResolved(grudge._id)}
-                >
+                   <div 
+                    className="flex items-center gap-4 flex-1 cursor-pointer min-w-0" 
+                    onClick={() => toggleResolved(grudge._id)}
+                 >
                   <div className={`w-5 h-5 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                     grudge.isResolved ? 'border-white/30 bg-white/20' : 'border-white/40'
                   }`}>
                     {grudge.isResolved && <span className="w-2.5 h-2.5 bg-white rounded-full shadow-sm"></span>}
                   </div>
                   
-                  <span
-                    className={`text-base select-none transition-all duration-300 ${
-                      grudge.isResolved ? 'line-through text-white/30' : 'text-white/80'
-                    }`}
-                  >
+                   <span
+                      className={`text-base select-none transition-all duration-300 break-words ${
+                       grudge.isResolved ? 'line-through text-white/30' : 'text-white/80'
+                        }`}
+                      >
                     {grudge.text}
                   </span>
                 </div>
