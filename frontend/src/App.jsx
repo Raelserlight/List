@@ -120,7 +120,7 @@ const addGrudge = async (e) => {
               >
                 {/* ช่องติ้ก ชิโร่ */}
                 <div 
-                  className="flex items-center gap-4 flex-none cursor-pointer"
+                  className="flex items-center gap-4 flex-1 cursor-pointer"
                   onClick={() => toggleResolved(grudge._id)}
                 >
                   <div className={`w-6 h-6 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
